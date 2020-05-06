@@ -1,7 +1,6 @@
 @extends('voyager::master')
 
 <!-- @section('page_title', __('voyager::generic.viewing').' '.__('voyager::generic.settings')) -->
-<meta name="_token" content="{{ csrf_token() }}"/>
 <title>SIJABLAY - DPMPTSP PROV. JATENG</title>
 
 
@@ -260,22 +259,10 @@
                             <h5>Ambil Nomor</h5>
                         </div>
                         <div class="ibox-content">
-                            <!-- <a href="#" class="add-modal"><li>Add a Post</li></a> -->
-                            <a href="#">
-                                <button class="btn btn-info btn-block add-surat" >
-                                    <i class="fa fa-align-right fa-arrow-circle-right"></i>
-                                    Create Nomor
-                                </button>
-                            </a>
-                            <!-- <a href="#">
-                                <button class="btn btn-info btn-block add-nodin" >
-                                    <i class="fa fa-align-right fa-arrow-circle-right"></i>
-                                    Nota Dinas
-                                </button>
-                            </a> -->
+                            <a href="#" class="add-modal"><li>Add a Post</li></a>
 
-                             <!-- Modal form to add Surat -->
-                                <div id="addSurat" class="modal fade" role="dialog">
+                             <!-- Modal form to add a post -->
+                                <div id="addModal" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -287,33 +274,13 @@
                                                 <!-- <form id="productForm" name="productForm" class="form-horizontal"> -->
 
                                                     @csrf
-                                                    <div class="form-group">
-                                                                <label class="control-label col-sm-3" for="title">Kategori</label>
-                                                                <div class="col-sm-9">
-                                                    @foreach($kategoris as $kategori)
-                                                        @if($kategori->id == 2)
-                                                            @else
-                                                            
-                                                                
-                                                                    <input class="form-check-input" type="checkbox" onclick="check();" name="kategori_nomor_id" value="{{$kategori->id}}">
-                                                                            {{$kategori->nama_kategori}}
-                                                                            @endif
-                                                    @endforeach
-                                                    <br>
-                                                                            <small>*) Pilih Salah Satu</small>
-                                                                </div>
-                                                            </div>
-                                                        
-
-
-
-
+                                                    <input name="kategori" id="kategori" value="1" hidden>
                                                     <input name="user_id" id="user_id" value="{{Auth::user()->id}}" hidden>
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="title">Perihal</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Input Perihal" id="perihal" autofocus>
-                                                            <!-- <textarea class="form-control" id="perihal" cols="40" rows="5"></textarea> -->
+                                                        <label class="control-label col-sm-2" for="title">Perihal</label>
+                                                        <div class="col-sm-10">
+                                                            <!-- <input type="text" class="form-control" id="perihal" autofocus> -->
+                                                            <textarea class="form-control" id="perihal" cols="40" rows="5"></textarea>
                                                             <!-- <small>Min: 2, Max: 32, only text</small> -->
                                                             <p class="errorTitle text-center alert alert-danger hidden"></p>
                                                         </div>
@@ -321,8 +288,8 @@
 
                                                     
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="content">Tanggal</label>
-                                                        <div class="col-sm-9">
+                                                        <label class="control-label col-sm-2" for="content">Tanggal</label>
+                                                        <div class="col-sm-10">
                                                             <div class="input-group date">
                                                                 <span class="input-group-addon">
                                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -337,21 +304,17 @@
                                                             <p class="errorContent text-center alert alert-danger hidden"></p>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="content">Jenis Surat*</label>
-
-                                                        <div class="col-sm-9">
-                                                            <select class="select2_demo_3 form-control" name="kode" id="kode"
-                                                                        style="width: 100%" required>
-                                                                    @foreach($kodes as $kode)
-                                                                        <option value="{{$kode->id}}">{{$kode->kode}} | {{$kode->desc}}</option>
-                                                                    @endforeach
-                                                            </select>
-                                                        </div>
+                                                    <div class="form-group"><label>Jenis Surat* </label>
+                                                        <select class="select2_demo_4 form-control" name="kode" id="kode"
+                                                                    style="width: 100%" required>
+                                                                @foreach($kodes as $kode)
+                                                                    <option value="{{$kode->id}}">{{$kode->kode}} | {{$kode->desc}}</option>
+                                                                @endforeach
+                                                        </select>
                                                     </div>
                                                 </form>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success addn" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-success add" data-dismiss="modal">
                                                         <span id="" class='glyphicon glyphicon-check'></span> Add
                                                     </button>
                                                     <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -363,81 +326,75 @@
                                     </div>
                                 </div>
 
-                            <!-- Modal form to add Nota Dinas -->
-                                <div id="addNodin" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">×</button>
-                                                <h4 class="modal-title"></h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal" role="form">
 
-                                                <!-- <form id="productForm" name="productForm" class="form-horizontal"> -->
 
-                                                    @csrf
-                                                    <input name="kategori" id="kategori" value="3" hidden>
-                                                    <input name="user_id" id="user_id" value="{{Auth::user()->id}}" hidden>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="title">Perihal</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Input Perihal" id="perihal">
-                                                            <!-- <textarea class="form-control" id="perihal" cols="40" rows="5"></textarea> -->
-                                                            <!-- <small>Min: 2, Max: 32, only text</small> -->
-                                                            <p class="errorTitle text-center alert alert-danger hidden"></p>
-                                                        </div>
+                            <button type="button" class="btn btn-info btn-lg" style="min-height: 300px; font-size: 68px" id="nodin">Nota Dinas</button>
+
+                            <button type="button" class="btn btn-info btn-lg" style="min-height: 300px; font-size: 68px" data-toggle="modal" data-target="#surat">Surat</button>
+
+                             <!-- Modal -->
+
+                              <div class="modal fade" id="nodins" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Nota Dinas</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="productForm" name="productForm" class="form-horizontal">
+
+                                            @csrf
+                                            <input name="kategori" id="kategori" value="1" hidden>
+                                            <input name="user_id" id="user_id" value="{{Auth::user()->id}}" hidden>
+
+
+                                            <div class="col-md-12">
+                                                <div class="form-group"><label>Perihal </label><br>
+                                                    <!-- <textarea rows="4" cols="50" name="perihal" form="usrform" id="perihal" placeholder="Perihal Surat"> -->
+                                                        <!-- <textarea name="perihal" id="perihal" rows="4" cols="50" placeholder="Perihal Surat">
+                                                        </textarea> -->
+
+                                                        <input placeholder="Perihal Surat" name="perihal" id="perihal" class="form-control">
+                                                </div>
+                                                <div class="form-group"><label>Tanggal</label>
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                        <input type="date" name="tanggal" id="tanggal" class="form-control"
+                                                                   value="{{$todayss}}">
+                                                        <input type="time" name="time" id="time" 
+                                                                   value="{{date('H:i:s')}}" hidden>
                                                     </div>
+                                                </div>
 
-                                                    
-                                                    <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="content">Tanggal</label>
-                                                        <div class="col-sm-9">
-                                                            <div class="input-group date">
-                                                                <span class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                </span>
-                                                                <input type="date" name="tanggal" id="tanggal" class="form-control"
-                                                                           value="{{$todayss}}">
-                                                                <input type="time" name="time" id="time" 
-                                                                           value="{{date('H:i:s')}}" hidden>
-                                                            </div>
-                                                            
-                                                            <!-- <small>Min: 2, Max: 128, only text</small> -->
-                                                            <p class="errorContent text-center alert alert-danger hidden"></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-sm-3" for="content">Jenis Surat*</label>
-
-                                                        <div class="col-sm-9">
-                                                            <select class="select2_demo_1 form-control" name="kode" id="kode"
-                                                                        style="width: 100%" required>
-                                                                    @foreach($kodes as $kode)
-                                                                        <option value="{{$kode->id}}">{{$kode->kode}} | {{$kode->desc}}</option>
-                                                                    @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success addnodin" data-dismiss="modal">
-                                                        <span id="" class='glyphicon glyphicon-check'></span> Add
-                                                    </button>
-                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                                        <span class='glyphicon glyphicon-remove'></span> Close
-                                                    </button>
+                                                <div class="form-group"><label>Jenis Surat* </label>
+                                                    <select class="select2_demo_4 form-control" name="kode" id="kode"
+                                                                style="width: 100%" required>
+                                                            @foreach($kodes as $kode)
+                                                                <option value="{{$kode->id}}">{{$kode->kode}} | {{$kode->desc}}</option>
+                                                            @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                        </div>
+
+                                        </form>
                                     </div>
+                                    <button type="submit" class="btn btn-primary" id="saveBtn">Save changes
+                                    </button>
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                  
                                 </div>
+                              </div>
 
                             @isset($nomors)
                                 <div class="row">
-                                    <!-- <table id="example" class="display" style="width:100%"> -->
-                                    <table class="table table-striped table-bordered table-hover" id="example">
-
+                                    <table id="example" class="display" style="width:100%">
                                         <thead>
                                         <tr>
                                             <th>No</th>
@@ -584,10 +541,6 @@
                 placeholder: "Select a state",
                 allowClear: true
             });
-            $(".select2_demo_4").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
 
             $('#data_1 .input-group.date').datepicker({
                 changeMonth: true,
@@ -689,16 +642,14 @@
 
 
 
-
-    <!-- add a Nomor Surat operations -->
+<!-- AJAX CRUD operations -->
     <script type="text/javascript">
-        // add a Nomor
-        $(document).on('click', '.add-surat', function() {
-            $('.modal-title').text('Create Nomor Surat');
-            $('#addSurat').modal('show');
+        // add a new post
+        $(document).on('click', '.add-modal', function() {
+            $('.modal-title').text('Add');
+            $('#addModal').modal('show');
         });
-
-        $('.modal-footer').on('click', '.addn', function() {
+        $('.modal-footer').on('click', '.add', function() {
             $.ajax({
                 type: 'POST',
                 url: '{{ route('add.nd') }}',
@@ -719,7 +670,7 @@
 
                     if ((data.errors)) {
                         setTimeout(function () {
-                            $('#addSurat').modal('show');
+                            $('#addModal').modal('show');
                             toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
                         }, 500);
 
@@ -732,43 +683,42 @@
                             $('.errorContent').text(data.errors.content);
                         }
                     } else {
-                        toastr.success('Successfully Created Nomor !', 'Success Alert', {timeOut: 5000});
-                        window.location.reload(true);
-                        // $('#example').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.iteration + "</td><td>" + data.perihal + "</td><td>" + data.tanggal + "</td><td>" + data.kode / data.count + "</td></tr>");
-                        
-
-                         // $('#example').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.title + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='new_published' data-id='" + data.id + " '></td><td>Right now</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
+                        toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
+                        $('#postTable').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.title + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='new_published' data-id='" + data.id + " '></td><td>Right now</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
                         
                     }
                 },
             });
         });
-    </script>
 
-
-    <script type="text/javascript">
-
-
-        // add a Nomor Nota Dinas
-        $(document).on('click', '.add-nodin', function() {
-            $('.modal-title').text('Create Nomor Nota Dinas');
-            $('#addNodin').modal('show');
+        // Show a post
+        $(document).on('click', '.show-modal', function() {
+            $('.modal-title').text('Show');
+            $('#id_show').val($(this).data('id'));
+            $('#title_show').val($(this).data('title'));
+            $('#content_show').val($(this).data('content'));
+            $('#showModal').modal('show');
         });
 
-        $('.modal-footer').on('click', '.addnodin', function() {
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('add.nd') }}',
-                // data: $('#productForm').serialize(),
 
+        // Edit a post
+        $(document).on('click', '.edit-modal', function() {
+            $('.modal-title').text('Edit');
+            $('#id_edit').val($(this).data('id'));
+            $('#title_edit').val($(this).data('title'));
+            $('#content_edit').val($(this).data('content'));
+            id = $('#id_edit').val();
+            $('#editModal').modal('show');
+        });
+        $('.modal-footer').on('click', '.edit', function() {
+            $.ajax({
+                type: 'PUT',
+                url: 'posts/' + id,
                 data: {
                     '_token': $('input[name=_token]').val(),
-                    'kategori': $('#kategori').val(),
-                    'user_id': $('#user_id').val(),
-                    'perihal': $('#perihal').val(),
-                    'tanggal': $('#tanggal').val(),
-                    'kode': $('#kode').val(),
-                    'tanggal': $('#tanggal').val()
+                    'id': $("#id_edit").val(),
+                    'title': $('#title_edit').val(),
+                    'content': $('#content_edit').val()
                 },
                 success: function(data) {
                     $('.errorTitle').addClass('hidden');
@@ -776,8 +726,8 @@
 
                     if ((data.errors)) {
                         setTimeout(function () {
-                            $('#addNodin').modal('show');
-                            toastr.error('Validation error!', 'Error Alert', {timeOut: 2000});
+                            $('#editModal').modal('show');
+                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
                         }, 500);
 
                         if (data.errors.title) {
@@ -789,14 +739,39 @@
                             $('.errorContent').text(data.errors.content);
                         }
                     } else {
-                        toastr.success('Successfully Created Nomor !', 'Success Alert', {timeOut: 2000});
-                        window.location.reload(true);
+                        toastr.success('Successfully Create Nomor !', 'Success Alert', {timeOut: 5000});
+                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.title + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='edit_published' data-id='" + data.id + "'></td><td>Right now</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
+
+                        
                         
                     }
+                }
+            });
+        });
+
+        // delete a post
+        $(document).on('click', '.delete-modal', function() {
+            $('.modal-title').text('Delete');
+            $('#id_delete').val($(this).data('id'));
+            $('#title_delete').val($(this).data('title'));
+            $('#deleteModal').modal('show');
+            id = $('#id_delete').val();
+        });
+        $('.modal-footer').on('click', '.delete', function() {
+            $.ajax({
+                type: 'DELETE',
+                url: 'posts/' + id,
+                data: {
+                    '_token': $('input[name=_token]').val(),
                 },
+                success: function(data) {
+                    toastr.success('Successfully deleted Post!', 'Success Alert', {timeOut: 5000});
+                    $('.item' + data['id']).remove();
+                }
             });
         });
     </script>
+
 
 
 
