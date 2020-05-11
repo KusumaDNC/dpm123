@@ -212,7 +212,11 @@
                        </div>
                    </div>
                </div>
+<<<<<<< HEAD
                {{$test}}
+=======
+               
+>>>>>>> f1c3b0ebf12622ef7beb3679a6a34f0893347af6
                {{--<div class="col-4" id="input-player-lists">
                    <div class="form-group"><label>Jumlah Anggaran</label>
                        <input placeholder="Jumlah Anggaran"  data-mask="#.##0" data-mask-reverse="true" name="jml_anggaran_sub[]" id="jml_anggaran_sub" class="form-control"
