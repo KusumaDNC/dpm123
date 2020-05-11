@@ -53,7 +53,7 @@ class CreateSPTController extends Controller
         $user_name = Auth::user()->name;
         $user = Auth::user()->id;
         $spt = SptModel::all()->where('user_id', '=', $user)->sortByDesc('created_at');
-        //dd(count($spt));
+        //dd($spt);
 
         $spt_terhapus = SptModel::onlyTrashed()->where('user_id', '=', $user)->get();
         //dd($spt_terhapus);

@@ -14,6 +14,7 @@ use App\PivotName;
 use Barryvdh\DomPDF\Facade as PDF;
 use Cake\Chronos\Date;
 use Carbon\Carbon;
+use TCG\Voyager\Models\Role;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -587,15 +588,20 @@ class RekapSPTController extends Controller
      * @throws \PhpOffice\PhpWord\Exception\CreateTemporaryFileException
      */
     public function cetakSppd($id){
+        $user = Auth::user()->id;
         $tahun = date('Y');
         $spt = SptModel::find($id);
         $asn = DataAsnModel::all();
         $rek = RekModel::all();
         $bidang_id = Auth::user()->id;
-        $bidang = Auth::user()->name;
+        $roles = Role::all()->where('id', '=', Auth::user()->role_id);
         $no_sppd = NumberModel::latest()->first();
         $sppd = $no_sppd->no_sppd;
-        //dd($sppd);
+        foreach ($roles as $role){
+
+        }
+        $bidang = $role->display_name;
+        //dd($bidang);
         foreach ($spt->tujuan as $dest){
 
         }
@@ -612,10 +618,9 @@ class RekapSPTController extends Controller
         }*/
 
         //dd($bidang);
-
+        //dd($spt);
         /*dd(count($spt->pivot));*/
         //dd($spt->reks->no_rek);
-
 
         //dd($kpa);
         if ($bidang == 'Sekretariat'){
@@ -625,8 +630,9 @@ class RekapSPTController extends Controller
         }
         else{
             $kpa = DataAsnModel::where('jabatan', 'LIKE', 'Kabid '.$bidang.'%')->get();
+            //dd($kpa);
             foreach ($kpa as $kbd){
-                //dd($kbd->nama);
+               // dd($kbd->nama);
             }
         }
 

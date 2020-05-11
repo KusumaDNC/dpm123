@@ -20,7 +20,7 @@
 @stop
 
 @section('content')
-    <div class="page-content edit-add container-fluid">
+   {{-- <div class="page-content edit-add container-fluid">
         <div class="row">
             <div class="col-md-12">
 
@@ -112,9 +112,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
-    <div class="modal fade modal-danger" id="confirm_delete_modal">
+   {{-- <div class="modal fade modal-danger" id="confirm_delete_modal">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -134,8 +134,121 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!-- End Delete File Modal -->
+   <form class="form-horizontal" action="{{--{{route('add.submenu')}}--}}" method="post">
+       @csrf
+
+       <div class="ibox-content">
+           <div class="row">
+               <div class="col-4">
+                   <div class="form-group" id="pd">
+                       <label class="col-lg-12 control-label">RKO Kegiatan</label>
+                       <select class="form-control" name="rko_id" id="rko_id" required>
+                           {{--@foreach($dropdown as $d)
+                               <option value="{{$d->id}}">{{$d->nama_kegiatan}}</option>
+                           @endforeach--}}
+                       </select>
+                   </div>
+               </div>
+               {{--<div class="col-4">
+                   <div class="col-lg-12">
+                       <div class="form-group"><label>Sub Kegiatan</label>
+                           <input placeholder="Nama Kegiatan" name="nama_sub_keg" id="nama_sub_keg"
+                                  class="form-control"> --}}{{--<span class="help-block m-b-none">Example block-level help text here.</span>--}}{{--
+                       </div>
+                   </div>
+               </div>
+               <div class="col-4">
+                   <div class="col-lg-12">
+                       <div class="form-group"><label>Jumlah Anggaran</label>
+                           <input placeholder="Jumlah Anggaran" data-mask="#.##0" data-mask-reverse="true" name="jml_anggaran_sub" id="jml_anggaran_sub"
+                                  class="form-control"> --}}{{--<span class="help-block m-b-none">Example block-level help text here.</span>--}}{{--
+                       </div>
+                   </div>
+               </div>--}}
+               {{--<div class="col-4">
+                   <div class="col-lg-12">
+                       <div class="form-group"><label>Bidang</label>
+                           <select class="form-control" name="bidang" id="bidang">
+                               @foreach($bidang as $b)
+                                   <option value="{{$b->id}}">{{$b->name}}</option>
+                               @endforeach
+                           </select>
+                       </div>
+                   </div>
+               </div>--}}
+           </div>
+           <div class="row">
+               <div class="col-12" >
+                   <div class="form-group" ><label>Sub Kegiatan</label>
+                       <div class="row" id="input-player-list">
+                           <div class="col-4">
+                               <input placeholder="Sub Kegiatan" name="nama_sub_keg[]" id="nama_sub_keg" class="form-control"
+                                      required>
+                           </div>
+                           <div class="col-4">
+                               <input placeholder="Jumlah Anggaran"  data-mask="#.##0" data-mask-reverse="true" name="jml_anggaran_sub[]" id="jml_anggaran_sub" class="form-control"
+                                      required>
+                           </div>
+                           <div class="col-4">
+                               <input placeholder="Target fisik"  data-mask="#.##0" data-mask-reverse="true" name="tager_sub[]" id="tager_sub" class="form-control"
+                                      required>
+                           </div>
+                       </div>
+
+                   </div>
+                   <div class="col-lg-12">
+                       <div class="ui-tooltip">
+                           <button type='button' class="btn btn-danger btn-circle float-left"
+                                   data-toggle="tooltip" data-placement="bottom" title="Hapus Sub Kegiatan"
+                                   id='removeSubKeg'>
+                               <i class="fa fa-minus"></i>
+                           </button>
+                           <button type='button' class="btn btn-info btn-circle float-right" id='addSubKeg'
+                                   data-toggle="tooltip" data-placement="bottom" title="Tambah Sub Kegiatan">
+                               <i class="fa fa-plus"></i>
+                           </button>
+                       </div>
+                   </div>
+               </div>
+               {{$test}}
+               {{--<div class="col-4" id="input-player-lists">
+                   <div class="form-group"><label>Jumlah Anggaran</label>
+                       <input placeholder="Jumlah Anggaran"  data-mask="#.##0" data-mask-reverse="true" name="jml_anggaran_sub[]" id="jml_anggaran_sub" class="form-control"
+                              required>
+                   </div>
+                   <div class="col-lg-12">
+                       <div class="ui-tooltip">
+                           <button type='button' class="btn btn-danger btn-circle float-left"
+                                   data-toggle="tooltip" data-placement="bottom" title="Hapus Jumlah Anggaran"
+                                   id='removePlayers'>
+                               <i class="fa fa-minus"></i>
+                           </button>
+                           <button type='button' class="btn btn-info btn-circle float-right" id='addPlayers'
+                                   data-toggle="tooltip" data-placement="bottom" title="Tambah Jumlah Anggaran">
+                               <i class="fa fa-plus"></i>
+                           </button>
+                       </div>
+                   </div>
+               </div>--}}
+           </div>
+           <div class="ibox float-e-margins">
+               <div class="ibox-content">
+                   <div class="form-group">
+                       <div class="col-lg-offset-0 col-lg-12">
+                           <button class="btn btn-sm btn-white" type="submit" id="submit-keg">Submit</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+
+       <div class="space-15">
+       </div>
+   </form>
+
 @stop
 
 @section('javascript')
@@ -210,5 +323,54 @@
             });
             $('[data-toggle="tooltip"]').tooltip();
         });
+    </script>
+
+    <script>
+        document.getElementById('addSubKeg').onclick = function createInputField() {
+            var input = document.createElement('input');
+            var input2 = document.createElement('input');
+            var input3 = document.createElement('input');
+            var lineBreak = document.createElement('br');
+            var testId = "nama_sub_keg";
+            var i = 0;
+            var x = document.getElementsByTagName('INPUT').length - 2;
+            var col8 = document.createElement('div');
+            col8.className ='col-4';
+            var col4 = document.createElement('div');
+            col4.className ='col-4';
+            input.setAttribute('id', testId + i);
+            input.className = 'form-control';
+            input.name = 'nama_sub_keg[]';
+            input.placeholder = 'Sub Kegiatan';
+            input2.setAttribute('id', testId + i);
+            input2.className = 'form-control';
+            input2.name = 'jml_anggaran_sub[]';
+            input2.placeholder = 'Anggaran';
+            input3.setAttribute('id', testId + i);
+            input3.className = 'form-control';
+            input3.name = 'tager_sub[]';
+            input3.placeholder = 'Target fisik';
+            for (i = 0; i < x; i++) {
+                i;
+                var aplayer1 = document.getElementById('input-player-list');
+                aplayer1.appendChild(col8);
+                aplayer1.appendChild(input);
+                aplayer1.appendChild(col4);
+                aplayer1.appendChild(input2);
+                aplayer1.appendChild(col4);
+                aplayer1.appendChild(input3);
+                aplayer1.appendChild(lineBreak);
+            }
+        }
+        document.getElementById('removeSubKeg').onclick = function removeInputField() {
+            var x = document.getElementsByTagName('INPUT').length;
+            console.log(x);
+            if ( x > 2 ) {
+                $('#input-player-list input:last').remove();
+                $('#input-player-list br:last').remove();
+                return false;
+            } else {
+            }
+        }
     </script>
 @stop

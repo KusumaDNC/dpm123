@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
     <title>SIJABLAY DPMPTSP PROV.JATENG - {{ Voyager::setting("admin.title") }}</title>
-    
+
 
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
     @if (__('voyager::generic.is_rtl') == 'true')
@@ -21,7 +21,7 @@
 
 
         body {
-            background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") ) }}');
+            background-image:url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg-02.jpg") ) }}');
             background-color: {{ Voyager::setting("admin.bg_color", "#FFFFFF" ) }};
         }
         body.login .login-sidebar {
@@ -61,7 +61,7 @@
 
                 <div class="wrapper">
                 <a href="{{ url('admin/login') }}" class="btn btn-primary">Go to Panel >></a>
-                    
+
                 </div> -->
 
                 <div class="col-sm-12 col-md-10 col-md-offset-2">
@@ -108,7 +108,7 @@
                         <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">{{ __('voyager::generic.remember_me') }}</label>
                         </div>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-block login-button">
                         <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
                         <span class="signin">{{ __('voyager::generic.login') }}</span>
@@ -131,7 +131,7 @@
             </div>
 
         </div>  -->
-    </div> 
+    </div>
 </div>
 <script>
     var btn = document.querySelector('button[type="submit"]');

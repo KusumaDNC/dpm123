@@ -311,61 +311,66 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <!--Custom popup import -->
 
-    <div class="modal modal-danger fade" tabindex="-1" id="bulk_import_modal" role="dialog">
+
+
+
+    <div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
                     <h4 class="modal-title">
-                        <i class="voyager-trash"></i> Import Data Oss
+                        <i class="voyager-trash"></i> Import Realisasi Investasi (PMA)
                     </h4>
                 </div>
 
+
                 <div class="modal-body">
-                    <form class="form-horizontal" action="{{route('import.rekoss')}}" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="{{route('import.pma')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group"><label>Upload File</label>
-                                        <input name="file" id="file" class="form-control" type="file" required>
-                                    </div>
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group"><label>Upload File</label>
+                                    <input name="file" id="file" class="form-control" type="file" required>
                                 </div>
-                            </div>
-                            <div class="space-15"></div>
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-content">
-                                    <div class="form-group">
-                                        <button class="btn btn-app btn-success" type="submit">Submit</button>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="space-15"></div>
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="form-group">
+                                    <button class="btn btn-app btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <div class="ibox-content">
 
-                    </div>
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
-                        {{ __('voyager::generic.cancel') }}
-                    </button>
+                <div class="modal-footer">
+                    <form action="#" id="delete_form" method="POST">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="{{ __('voyager::generic.delete_confirm') }}">
+                    </form>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div>
+    </div><!-- /.modal -->
+
+    <!--Custom popup import -->
+
 
 @stop
 
@@ -451,15 +456,16 @@
 
     <script>
         window.onload = function () {
-            // Bulk import selectors
-            var $bulkImportBtn = $('#import');
+            // Bulk import$bulkImportBtn selectors
+            var  = $('#import');
             var $bulkImportModal = $('#bulk_import_modal');
             // Reposition modal to prevent z-index issues
             $bulkImportModal.appendTo('body');
             // Bulk delete listener
             $bulkImportBtn.click(function () {
-               $bulkImportModal.modal('show');
+                $bulkImportModal.modal('show');
             });
         }
     </script>
+
 @stop

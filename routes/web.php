@@ -19,20 +19,22 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
+    //Oss
     Route::get('/oss/show', 'PDI\RekapOSSController@index')->name('show.oss');
     Route::post('/oss/import', 'PDI\RekapOSSController@import')->name('import.rekoss');
-
     /*Route::get('oss-models','App\Http\Controllers\Voyager\DataOssController@import')->name('import.rekoss');*/
 
+    //Wasdal PMA
+    Route::post('PMA/import', 'Wasdal\PMAInvestController@import')->name('import.pma');
 
     //penggunaan NOMOR
-        Route::get('/penggunaan-nomors', 'SuperController@index')->name('indxnomor');
-        Route::post('/penggunaan-nomors/store', 'SuperController@addnmrs')->name('nmr.store');
+        Route::get('/penggunaan-nomorss', 'SuperController@indx')->name('indxnomor');
+        Route::post('/penggunaan-nomors/store', 'SuperController@addnmrs')->name('add.nd');
 
 
 
     //spt
-        Route::get('/spt', 'SuperController@gabung')->name('sptgabung');
+        // Route::get('/spt', 'SuperController@gabung')->name('sptgabung');
         Route::post('/spt/all', 'SuperController@sptstore')->name('create.spt');
         Route::get('/spt/all/edit/{id}', 'SPT\CreateSPTController@edit')->name('edit.spt');
         // Route::patch('/spt/all/update/{id}', 'SPT\CreateSPTController@update')->name('update.spt');
@@ -40,7 +42,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/spt/rekap/spt', 'SPT\RekapSPTController@getSpt')->name('rekap.spt');
 
         Route::get('/spt/spt_cetak/{id}', 'SPT\RekapSPTController@cetakSpt')->name('cetak.spt');
-        
+
         Route::get('/spt/sppd_cetak/{id}', 'SPT\RekapSPTController@cetakSppd')->name('cetak.sppd');
         Route::get('/spt/nodin_cetak/{id}', 'SPT\RekapSPTController@cetakNodin')->name('cetak.nodin');
         Route::delete('/spt/hapus/{id}', 'SPT\RekapSPTController@hapusSpt')->name('hapus.spt');
@@ -67,10 +69,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-    Route::get('/penggunaan-nomor', 'Sekretariat\Nomor\NewAmbilNomor@showSetting')->name('show.setting-nomor');
-    Route::post('/penggunaan-nomors/store', 'Sekretariat\Nomor\NewAmbilNomor@addNomor')->name('add.nd');
-    Route::get('/penggunaan-nomors/edit-nomor/{id}', 'Sekretariat\Nomor\NewAmbilNomor@editNomor')->name('edit.nd');
-    Route::patch('/penggunaan-nomors/update-nomor/{id}', 'Sekretariat\Nomor\NewAmbilNomor@updateNomor')->name('update.nd');
+    // Route::get('/penggunaan-nomor', 'Sekretariat\Nomor\NewAmbilNomor@showSetting')->name('show.setting-nomor');
+    // Route::post('/penggunaan-nomors/store', 'Sekretariat\Nomor\NewAmbilNomor@addNomor')->name('add.nd');
+    // Route::get('/penggunaan-nomors/edit-nomor/{id}', 'Sekretariat\Nomor\NewAmbilNomor@editNomor')->name('edit.nd');
+    // Route::patch('/penggunaan-nomors/update-nomor/{id}', 'Sekretariat\Nomor\NewAmbilNomor@updateNomor')->name('update.nd');
 
     //Route::get('/penggunaan-nomors', 'Sekretariat\Nomor\NewAmbilNomor@index')->name('indxnomor');
     //Route::post('/penggunaan-nomors/store', 'Sekretariat\Nomor\NewAmbilNomor@addnmrs')->name('nmr.store');
