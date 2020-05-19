@@ -594,7 +594,7 @@ class RekapSPTController extends Controller
         $asn = DataAsnModel::all();
         $rek = RekModel::all();
         $bidang_id = Auth::user()->id;
-        $roles = Role::all()->where('id', '=', Auth::user()->role_id);
+        $roles = Role::all()->where('id', '=', Auth::user()->role_id);   //
         $no_sppd = NumberModel::latest()->first();
         $sppd = $no_sppd->no_sppd;
         foreach ($roles as $role){

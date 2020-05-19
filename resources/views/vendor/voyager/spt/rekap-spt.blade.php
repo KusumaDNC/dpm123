@@ -78,6 +78,7 @@
                                 <td>
                                     @foreach($s->pivot as $j)
                                         <li>{{$j->namad->nama}}</li>
+                                        <li> {{dd($j->namad)}}</li>
                                     @endforeach
 
                                 </td>
